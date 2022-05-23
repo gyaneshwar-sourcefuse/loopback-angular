@@ -1,0 +1,61 @@
+<div class="my-4"></div>
+<div class="d-flex justify-content-center" *ngIf="!load">
+    <button class="btn btn-success" (click)="loadData()">Load data</button>
+</div>
+<ng-container *ngIf="load">
+    <button class="btn btn-primary mb-2 ms-2" (click)="refresh()">Refresh data</button>
+    <div class="table-responsive p-2">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Created On</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of listOfData;">
+                    <td>
+                        <ng-container *ngIf="!editRow[user.id]">
+                            {{user.name}}
+                        </ng-container>
+                        <ng-container *ngIf="editRow[user.id]">
+                            <input type="text" class="form-control" [(ngModel)]="editRow[user.id].name">
+                        </ng-container>
+                    </td>
+                    <td>
+                        <ng-container *ngIf="!editRow[user.id]">
+                            {{user.email}}
+                        </ng-container>
+                        <ng-container *ngIf="editRow[user.id]">
+                            <input type="text" class="form-control" [(ngModel)]="editRow[user.id].email">
+                        </ng-container>
+                    </td>
+                    <td>
+                        <ng-container *ngIf="!editRow[user.id]">
+                            {{role[user.role!]}}
+                        </ng-container>
+                        <ng-container *ngIf="editRow[user.id]">
+                            <input type="text" class="form-control" [(ngModel)]="editRow[user.id].role">
+                        </ng-container>
+                    </td>
+                    <td>
+                        {{user.createdAt | customDate:"DD-MM-YYYY hh:mm a"}}
+                    </td>
+                    <td>
+                        <ng-container *ngIf="!editRow[user.id]">
+                            <button class="mx-1 btn btn-warning" (click)="edit(user)">Edit</button>
+                            <button class="mx-1 btn btn-danger" (click)="delete(user)">Delete</button>
+                        </ng-container>
+                        <ng-container *ngIf="editRow[user.id]">
+                            <button class="mx-1 btn btn-success" (click)="save(user)">Save</button>
+                            <button class="mx-1 btn btn-danger" (click)="cancel(user)">Cancel</button>
+                        </ng-container>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-container>
