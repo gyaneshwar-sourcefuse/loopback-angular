@@ -6,13 +6,9 @@ import { Role, User } from '../../interfaces/app';
 @Component({
   selector: 'app-root',
   templateUrl: './crud.component.html',
-  styleUrls: ['./crud.component.scss']
+  styleUrls: ['./crud.component.scss'],
 })
-
-
-
 export class CrudComponent {
-
   listOfData: User[] = [];
   editRow: { [key: string]: any } = {};
   load: boolean = false;
@@ -20,10 +16,7 @@ export class CrudComponent {
 
   title = 'table';
 
-
-  constructor(private userService: ServerUserService) {
-
-  }
+  constructor(private userService: ServerUserService) {}
 
   loadData() {
     this.load = true;
@@ -33,7 +26,7 @@ export class CrudComponent {
   getData() {
     this.userService.findAll().subscribe((res: User[]) => {
       this.listOfData = res;
-    })
+    });
   }
 
   refresh() {
@@ -41,7 +34,7 @@ export class CrudComponent {
   }
 
   edit(user: User) {
-    this.editRow[user.id] = {...user};
+    this.editRow[user.id] = { ...user };
     //delete this.editRow[user.id].id;
   }
 
@@ -63,10 +56,11 @@ export class CrudComponent {
     this.userService.update(user.id, this.editRow[user.id]).subscribe({
       next: (res: User) => {
         this.getData();
-      }, error: (e) => { }, complete: () => {
+      },
+      error: (e) => {},
+      complete: () => {
         this.cancel(user);
-      }
-    })
-
+      },
+    });
   }
 }

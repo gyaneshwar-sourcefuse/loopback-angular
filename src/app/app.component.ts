@@ -5,13 +5,9 @@ import { UserService } from './services/user.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-
-
-
 export class AppComponent {
-
   listOfData: User[] = [];
   editRow: { [key: string]: any } = {};
   load: boolean = false;
@@ -19,10 +15,7 @@ export class AppComponent {
 
   title = 'table';
 
-
-  constructor(private userService: UserService) {
-
-  }
+  constructor(private userService: UserService) {}
 
   loadData() {
     this.load = true;
